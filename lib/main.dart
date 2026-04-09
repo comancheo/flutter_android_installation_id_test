@@ -149,9 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: SingleChildScrollView(
         child: Column(
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
@@ -166,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             if (showError.isNotEmpty) ...[
               SelectableText("Error:", style: Theme.of(context).textTheme.headlineSmall),
@@ -174,6 +172,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ] else if (loading) ...[
               const CircularProgressIndicator(),
             ] else ...[
+              SelectableText("deviceString:", style: Theme.of(context).textTheme.headlineSmall),
+              SelectableText("$deviceString"),
+              SelectableText("hash: (made from deviceString)", style: Theme.of(context).textTheme.headlineSmall),
+              SelectableText(hash),
               SelectableText("Flutter_uuid:", style: Theme.of(context).textTheme.headlineSmall),
               SelectableText("$flutterUdid"),
               SelectableText("allDeviceInfo:", style: Theme.of(context).textTheme.headlineSmall),
@@ -186,10 +188,6 @@ class _MyHomePageState extends State<MyHomePage> {
               SelectableText("$serial"),
               SelectableText("MAC:", style: Theme.of(context).textTheme.headlineSmall),
               SelectableText("$mac"),
-              SelectableText("deviceString:", style: Theme.of(context).textTheme.headlineSmall),
-              SelectableText("$deviceString"),
-              SelectableText("hash:", style: Theme.of(context).textTheme.headlineSmall),
-              SelectableText(hash),
               IconButton.filled(
                 onPressed: () async {
                   await downloadAppIds();

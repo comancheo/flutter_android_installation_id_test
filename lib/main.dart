@@ -79,26 +79,26 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> downloadAppIds() async {
-    String idsHumanReadAble = '''    FlutterUdid: $flutterUdid
+    String idsHumanReadAble = '''    hash: $hash
+    _________
+    deviceString: $deviceString
     _________
     appSetId: $appSetId
     _________
     mac: $mac
     _________
-    deviceString: $deviceString
+    DeviceInfoPlus[fingerprint]:${allDeviceInfo['fingerprint']}
     _________
-    serial: $serial
+    DeviceInfoPlus[id]:${allDeviceInfo['id']}
     _________
-    hash: $hash
-    _________
-    androidId: $androidId
+    DeviceInfoPlus[version]:${allDeviceInfo['version']}
     _________
     allDeviceInfo: $allDeviceInfo''';
 
     final directory = await getApplicationDocumentsDirectory();
     File idsFile = File('${directory.path}/ids_file.txt');
     await idsFile.writeAsString(idsHumanReadAble);
-    final result = await Share.shareXFiles([XFile(idsFile.path)], text: 'Great picture');
+    final result = await Share.shareXFiles([XFile(idsFile.path)], text: 'Device IDs');
 
     if (result.status == ShareResultStatus.success) {
         print('Thank you for sharing the picture!');

@@ -4,12 +4,13 @@ import 'dart:typed_data';
 import 'package:app_set_id/app_set_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_udid/flutter_udid.dart';
+//import 'package:flutter_udid/flutter_udid.dart';
 import 'package:crypto/crypto.dart';
 
 class UIdHelper {
   Future<String?> flutterUdid() async {
-    final String udid = await FlutterUdid.consistentUdid;
+    //Not supported in this version of Flutter
+    final String? udid = null; //await FlutterUdid.consistentUdid;
     debugPrint('FlutterUdid: $udid');
     return udid;
   }
@@ -23,7 +24,6 @@ class UIdHelper {
   }
 
   Future<String?> androidId() async {
-
     //Not supported in this version of Flutter
     // final androidIdPlugin = AndroidId();
     // final String? androidId = await androidIdPlugin.getId();

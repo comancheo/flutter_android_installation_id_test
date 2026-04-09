@@ -81,26 +81,28 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> downloadAppIds() async {
     String idsHumanReadAble = '''    FlutterUdid: $flutterUdid
     _________
-    allDeviceInfo: $allDeviceInfo
-    _________
-    androidId: $androidId
-    _________
-    serial: $serial
+    appSetId: $appSetId
     _________
     mac: $mac
     _________
     deviceString: $deviceString
     _________
-    hash: $hash''';
+    serial: $serial
+    _________
+    hash: $hash
+    _________
+    androidId: $androidId
+    _________
+    allDeviceInfo: $allDeviceInfo''';
 
     final directory = await getApplicationDocumentsDirectory();
     File idsFile = File('${directory.path}/ids_file.txt');
     await idsFile.writeAsString(idsHumanReadAble);
-    // final params = ShareParams(text: idsHumanReadAble, subject: 'My Device IDS', files: [XFile.fromData(idsFile.readAsBytesSync())], fileNameOverrides: ['ids_file.txt']);
-    // final result = await SharePlus.instance.share(params);
-    // if (result.status == ShareResultStatus.success) {
-    //   debugPrint('File share success');
-    // }
+    final result = await Share.shareXFiles([XFile(idsFile.path)], text: 'Great picture');
+
+    if (result.status == ShareResultStatus.success) {
+        print('Thank you for sharing the picture!');
+    }
   }
 
   Future<void> reloadIDs() async {
@@ -172,28 +174,30 @@ class _MyHomePageState extends State<MyHomePage> {
             ] else if (loading) ...[
               const CircularProgressIndicator(),
             ] else ...[
-              SelectableText("deviceString:", style: Theme.of(context).textTheme.headlineSmall),
+              SelectableText("deviceString: (made from: appSetId, MAC, DeviceInfoPlus[fingerpring], DeviceInfoPlus[id], DeviceInfoPlus[version])", style: Theme.of(context).textTheme.headlineSmall),
               SelectableText("$deviceString"),
               SelectableText("hash: (made from deviceString)", style: Theme.of(context).textTheme.headlineSmall),
               SelectableText(hash),
-              SelectableText("Flutter_uuid:", style: Theme.of(context).textTheme.headlineSmall),
-              SelectableText("$flutterUdid"),
-              SelectableText("allDeviceInfo:", style: Theme.of(context).textTheme.headlineSmall),
-              SelectableText("$allDeviceInfo"),
-              SelectableText("Android_id:", style: Theme.of(context).textTheme.headlineSmall),
-              SelectableText("$androidId"),
-              SelectableText("appSetId:", style: Theme.of(context).textTheme.headlineSmall),
-              SelectableText("$appSetId"),
-              SelectableText("serial:", style: Theme.of(context).textTheme.headlineSmall),
-              SelectableText("$serial"),
               SelectableText("MAC:", style: Theme.of(context).textTheme.headlineSmall),
               SelectableText("$mac"),
+              SelectableText("appSetId:", style: Theme.of(context).textTheme.headlineSmall),
+              SelectableText("$appSetId"),
+              SelectableText("DeviceInfoPlus[fingerprint]:", style: Theme.of(context).textTheme.headlineSmall),
+              SelectableText("${allDeviceInfo['fingerprint']}"),
+              SelectableText("DeviceInfoPlus[id]:", style: Theme.of(context).textTheme.headlineSmall),
+              SelectableText("${allDeviceInfo['id']}"),
+              SelectableText("DeviceInfoPlus[version]:", style: Theme.of(context).textTheme.headlineSmall),
+              SelectableText("${allDeviceInfo['version']}"),
+              const SizedBox(height:10),
               IconButton.filled(
                 onPressed: () async {
                   await downloadAppIds();
                 },
                 icon: const Icon(Icons.download),
               ),
+              const SizedBox(height:10),
+              SelectableText("allDeviceInfo:", style: Theme.of(context).textTheme.headlineSmall),
+              SelectableText("$allDeviceInfo"),
             ],
           ],
         ),

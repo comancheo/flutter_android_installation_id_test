@@ -17,9 +17,12 @@ class UIdHelper {
 
   Future<Map<String, dynamic>> allDeviceInfo() async {
     final deviceInfoPlugin = DeviceInfoPlugin();
-    final deviceInfo = await deviceInfoPlugin.deviceInfo;
+    final deviceInfo = await deviceInfoPlugin.androidInfo;
     final Map<String, dynamic> allDeviceInfo = deviceInfo.data;
-    debugPrint('allDeviceInfo: $allDeviceInfo');
+    debugPrint('allDeviceInfo:');
+    for (dynamic info in allDeviceInfo.entries) {
+      debugPrint('$info');
+    }
     return allDeviceInfo;
   }
 
@@ -76,12 +79,12 @@ class UIdHelper {
     final String? aid = await androidId();
     final String? aSI = await appSetId();
     final String? mac = tryParseMacAddress();
-    final String? ramSize = di['physicalRamSize']?.toString();
+    //final String? ramSize = di['physicalRamSize']?.toString(); //not supported yet
     final String? fingerprint = di['fingerprint'];
     final String? id = di['id'];
-    final String? totalDiskSize = di['totalDiskSize']?.toString();
+    //final String? totalDiskSize = di['totalDiskSize']?.toString(); //not supported yet
     final String? version = di['version']?.toString();
-    String res = '$udid $aid $aSI $mac $ramSize $fingerprint $id $totalDiskSize $version';
+    String res = '$aSI $mac $fingerprint $id $version';
     debugPrint('getDeviceString: $res');
     return res;
   }

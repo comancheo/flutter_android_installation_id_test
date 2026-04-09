@@ -152,6 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.all(15),
         child: Column(
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
@@ -167,6 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             if (showError.isNotEmpty) ...[
               SelectableText("Error:", style: Theme.of(context).textTheme.headlineSmall),
@@ -193,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () async {
                   await downloadAppIds();
                 },
-                icon: const Icon(Icons.download),
+                icon: const Icon(Icons.share),
               ),
               const SizedBox(height:10),
               SelectableText("allDeviceInfo:", style: Theme.of(context).textTheme.headlineSmall),
